@@ -6,11 +6,11 @@ import PlayButton from '../assets/icons/play.svg'
 import InfoButton from '../assets/icons/information-button.svg'
 
 interface Props {
-  netflixOriginals?: Movie[]
+  netflixOriginals: Movie[]
 }
 
 function Banner({ netflixOriginals }: Props) {
-  const [movie, setMovie] = useState<Movie | undefined>(undefined)
+  const [movie, setMovie] = useState<Movie | null>(null)
 
   useEffect(() => {
     setMovie(
@@ -31,7 +31,7 @@ function Banner({ netflixOriginals }: Props) {
       <h1 className="text-2xl font-bold text-shadow-lg md:text-4xl lg:text-7xl">
         {movie?.title || movie?.name || movie?.original_name}
       </h1>
-      <p className="max-w-xs text-xs text-shadow-md text-shadow-md md:max-w-lg md:text-lg lg:max-w-2xl lg:text-2xl">
+      <p className="max-w-xs text-xs text-shadow-md  md:max-w-lg md:text-lg lg:max-w-2xl lg:text-2xl">
         {movie?.overview}
       </p>
 

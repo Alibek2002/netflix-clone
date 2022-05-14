@@ -5,8 +5,10 @@ import AccountButton from '../assets/icons/user.svg'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import React from 'react'
+import useAuth from '../hooks/useAuth'
 function Header() {
   const [isScroll, setIsScroll] = useState(false)
+  const { logOut } = useAuth()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,7 +46,7 @@ function Header() {
         <SearchButton className="h-[20px] w-[20px] cursor-pointer" />
         <p className="hidden lg:inline">Kids</p>
         <BellButton className="h-[20px] w-[20px] cursor-pointer" />
-        <Link href={'/account'}>
+        <span onClick={() => logOut()} className="cursor-pointer">
           <a>
             <img
               src="http://zoeice.com/assets/img/uploads/profile.png"
@@ -52,7 +54,7 @@ function Header() {
               className="h-[30px] w-[30px] rounded-sm"
             />
           </a>
-        </Link>
+        </span>
       </div>
     </header>
   )

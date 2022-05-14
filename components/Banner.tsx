@@ -4,6 +4,8 @@ import { Movie } from '../typing'
 import { baseUrl } from '../constants/movie'
 import PlayButton from '../assets/icons/play.svg'
 import InfoButton from '../assets/icons/information-button.svg'
+import { useRecoilState } from 'recoil'
+import { modalState, movieState } from '../atoms/modalAtom'
 
 interface Props {
   netflixOriginals: Movie[]
@@ -11,6 +13,7 @@ interface Props {
 
 function Banner({ netflixOriginals }: Props) {
   const [movie, setMovie] = useState<Movie | null>(null)
+  const [currentMovie, setCurrentMovie] = useRecoilState(movieState)
 
   useEffect(() => {
     setMovie(
@@ -18,6 +21,7 @@ function Banner({ netflixOriginals }: Props) {
     )
   }, [netflixOriginals])
 
+  const [showModal, setShowModal] = useRecoilState(modalState)
   return (
     <div className="flex flex-col space-y-2 py-16 md:space-y-4 lg:h-[65vh] lg:justify-end lg:pb-12">
       <div className="absolute top-0 left-0 -z-10 h-[95vh] w-full">
@@ -39,7 +43,13 @@ function Banner({ netflixOriginals }: Props) {
         <button className="bannerButton bg-white text-black">
           <PlayButton className="h-3 w-3 md:h-6  md:w-6" /> Play
         </button>
-        <button className="bannerButton bg-[gray]/70">
+        <button
+          className="bannerButton bg-[gray]/70"
+          onClick={() => {
+            setShowModal(true)
+            setCurrentMovie(movie)
+          }}
+        >
           <InfoButton className="h-3 w-3 md:h-6 md:w-6" />
           More Info
         </button>
